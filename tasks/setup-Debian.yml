@@ -1,0 +1,24 @@
+---
+
+- name: Ensure that prerequisites are installed.
+  apt:
+    name: "{{ item }}"
+    state: present
+
+  loop: "{{ grafana_prerequisites }}"
+
+- name: Add Grafana GPG key.
+  apt_key:
+    url: "{{ grafana_apt_key_url }}"
+    state: present
+    keyring: "{{ grafana_apt_keyring_path }}"
+
+
+- name: Add Grafana repository.
+  apt_repository:
+    repo: "{{ grafana_apt_repo }}"
+    state: present
+    filename: grafana
+    update_cache: yes
+
+

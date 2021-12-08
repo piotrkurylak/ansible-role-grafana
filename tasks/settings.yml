@@ -1,0 +1,10 @@
+---
+
+- name: Set up HTTP port
+  lineinfile:
+    path: "{{ grafana_config_file }}"
+    state: present
+    regex: ^;http_port = 
+    line: "http_port = {{ grafana_http_port }}"
+  notify: restart grafana
+

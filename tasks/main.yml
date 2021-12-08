@@ -1,0 +1,14 @@
+---
+
+- include_tasks: setup-Debian.yml
+  when: ansible_os_family == "Debian"
+
+- name: Ensure that Grafana is installed.
+  apt:
+    name: grafana-enterprise
+    state: present
+
+- include_tasks: settings.yml
+
+- name: Flush handlers.
+  meta: flush_handlers
